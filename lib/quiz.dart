@@ -8,6 +8,7 @@ class Quiz extends StatelessWidget {
   final int questionIndex;
   final Function answerQuestion;
 
+  //Understand this Why use {} in constructor ??
   Quiz(
       {@required this.questions,
       @required this.questionIndex,
@@ -19,8 +20,9 @@ class Quiz extends StatelessWidget {
       child: Column(children: [
         Question(questions[questionIndex]['questionText'] as String),
         // ignore: sdk_version_ui_as_code
-        ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
+            .map((answer) {
+          return Answer(() => answerQuestion(answer['score']), answer['text']);
         }).toList()
       ]),
     );
